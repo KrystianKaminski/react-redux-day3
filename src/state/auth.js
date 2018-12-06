@@ -1,6 +1,18 @@
 const LOG_IN = 'auth/LOG_IN'
 const LOG_OUT = 'auth/LOG_OUT'
 
+export const initAuthChangeListeningAction = () => (dispatch, getState) => {
+    auth.onAuthStateChanged(
+        user => {
+            if (user) {
+                this.setState({ isUserLoggedIn: true })
+            } else {
+                this.setState({ isUserLoggedIn: false })
+            }
+        }
+    )
+}
+
 const logInAction = () => ({
     type: LOG_IN
 })
