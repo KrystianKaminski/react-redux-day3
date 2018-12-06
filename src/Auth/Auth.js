@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { auth, googleProvider } from '../firebaseConfig'
+
 
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 
@@ -10,7 +10,8 @@ import { connect } from 'react-redux'
 import {
     initAuthChangeListeningAsyncAction,
     logOutAsyncAction,
-    logInByGoogleAsyncAction
+    logInByGoogleAsyncAction,
+    logIn
 } from '../state/auth'
 
 
@@ -37,11 +38,7 @@ class Auth extends React.Component {
     }
 
     onLogInClick = () => {
-        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-            .catch(error => {
-                alert('Something is wrong! Check console for error details')
-                console.log(error)
-            })
+        this.props._logIn(this.state.email, this.state.password)
     }
 
 
@@ -87,7 +84,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
     _logOutAsyncAction: () => dispatch(logOutAsyncAction()),
-    _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction())
+    _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction()),
+    _logIn: (email, password) => dispatch(logIn(email, password))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth)
