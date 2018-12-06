@@ -9,7 +9,8 @@ import Forms from './Forms'
 import { connect } from 'react-redux'
 import {
     initAuthChangeListeningAsyncAction,
-    logOutAsyncAction
+    logOutAsyncAction,
+    logInByGoogleAsyncAction
 } from '../state/auth'
 
 
@@ -43,9 +44,6 @@ class Auth extends React.Component {
             })
     }
 
-    onLogInByGoogleClick = () => {
-        auth.signInWithPopup(googleProvider)
-    }
 
 
 
@@ -74,7 +72,7 @@ class Auth extends React.Component {
                     emailHandler={this.emailHandler}
                     passwordHandler={this.passwordHandler}
                     onLogIn={this.onLogInClick}
-                    onLogGoogle={this.onLogInByGoogleClick}
+                    onLogGoogle={this.props._logInByGoogleAsyncAction}
                     emailValue={this.state.email}
                     passwordValue={this.state.password}
                 />
@@ -88,7 +86,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
-    _logOutAsyncAction: () => dispatch(logOutAsyncAction())
+    _logOutAsyncAction: () => dispatch(logOutAsyncAction()),
+    _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth)

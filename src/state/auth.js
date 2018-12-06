@@ -1,4 +1,4 @@
-import { auth } from '../firebaseConfig'
+import { auth, googleProvider } from '../firebaseConfig'
 
 const LOG_IN = 'auth/LOG_IN'
 const LOG_OUT = 'auth/LOG_OUT'
@@ -17,6 +17,10 @@ export const initAuthChangeListeningAsyncAction = () => (dispatch, getState) => 
 
 export const logOutAsyncAction = () => (dispatch, getState) => {
     auth.signOut()
+}
+
+export const logInByGoogleAsyncAction = () => (dispatch, getState) => {
+    auth.signInWithPopup(googleProvider)
 }
 
 const logInAction = () => ({
