@@ -27,9 +27,13 @@ export const logInByGoogleAsyncAction = () => (dispatch, getState) => {
 
 export const logInAsyncAction = () => (dispatch, getState) => {
 
-    const state = getState()
+    const {auth: { email, password } } = getState()
 
-    auth.signInWithEmailAndPassword(state.auth.email, state.auth.password)
+    // above destructuring is the same as
+    // const email = getState().auth.email
+    // const password = getState().auth.password
+
+    auth.signInWithEmailAndPassword(email, password)
         .catch(error => {
             alert('Something is wrong! Check console for error details')
             console.log(error)
