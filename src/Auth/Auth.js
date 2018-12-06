@@ -6,7 +6,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 
 import Forms from './Forms'
 
-
+import { connect } from 'react-redux'
+import { initAuthChangeListeningAction } from '../state/auth';
 
 
 class Auth extends React.Component {
@@ -89,5 +90,12 @@ class Auth extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    _isUserLoggedIn: state.auth.isUserLoggedIn
+})
 
-export default Auth
+const mapDispatchToProps = dispatch => ({
+    _initAuthChangeListeningAction: () => dispatch(initAuthChangeListeningAction())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)
