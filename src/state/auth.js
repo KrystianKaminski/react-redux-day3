@@ -25,9 +25,11 @@ export const logInByGoogleAsyncAction = () => (dispatch, getState) => {
     auth.signInWithPopup(googleProvider)
 }
 
-export const logInAsyncAction = (email, password) => (dispatch, getState) => {
+export const logInAsyncAction = () => (dispatch, getState) => {
 
-    auth.signInWithEmailAndPassword(email, password)
+    const state = getState()
+
+    auth.signInWithEmailAndPassword(state.auth.email, state.auth.password)
         .catch(error => {
             alert('Something is wrong! Check console for error details')
             console.log(error)
