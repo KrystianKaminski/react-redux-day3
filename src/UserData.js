@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { inputChangeAction, saveInDatabase } from './state/userData';
+import { inputChangeAction, saveTextToDbAsyncAction } from './state/userData';
 
 const UserData = (props) => (
     <div>
@@ -10,7 +10,7 @@ const UserData = (props) => (
             onChange={props._inputChangeAction}
         />
         <button
-            onClick={props._saveToDatabase}
+            onClick={props._saveTextToDbAsyncAction}
         >
             Add value
         </button>
@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 
 const dispatchToProps = dispatch => ({
     _inputChangeAction: (event) => dispatch(inputChangeAction(event.target.value)),
-    _saveToDatabase: () => dispatch(saveInDatabase())
+    _saveTextToDbAsyncAction: () => dispatch(saveTextToDbAsyncAction())
 })
 
 

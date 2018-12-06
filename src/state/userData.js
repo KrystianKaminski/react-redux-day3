@@ -7,11 +7,13 @@ export const inputChangeAction = text => ({
     text
 })
 
-export const saveInDatabase = () => (dispatch, getState) => {
-    
-    const { userData: { text }} = getState()
-    
-    database.ref('user').push({
+export const saveTextToDbAsyncAction = () => (dispatch, getState) => {
+
+    const { userData: { text },
+        auth: { user: { uid: uuid } }
+    } = getState()
+
+    database.ref(`users/${uuid}`).set({
         text
     })
 }
@@ -21,13 +23,13 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case TEXT_VALUE:
             return {
                 ...state,
                 text: action.text
             }
-        
+
         default:
             return state
     }
