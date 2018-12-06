@@ -7,7 +7,10 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import Forms from './Forms'
 
 import { connect } from 'react-redux'
-import { initAuthChangeListeningAction } from '../state/auth';
+import {
+    initAuthChangeListeningAsyncAction,
+    logOutAsyncAction
+} from '../state/auth'
 
 
 class Auth extends React.Component {
@@ -20,7 +23,7 @@ class Auth extends React.Component {
 
 
     componentDidMount() {
-       this.props._initAuthChangeListeningAction()
+        this.props._initAuthChangeListeningAsyncAction()
     }
 
 
@@ -44,9 +47,7 @@ class Auth extends React.Component {
         auth.signInWithPopup(googleProvider)
     }
 
-    onLogOutClickHandler = () => {
-        auth.signOut()
-    }
+
 
 
     render() {
@@ -62,7 +63,7 @@ class Auth extends React.Component {
                             color: 'white'
                         }}
                         secondary={true}
-                        onClick={this.onLogOutClickHandler}
+                        onClick={this.props._logOutAsyncAction}
                     >
                         X
                     </FloatingActionButton>
@@ -86,7 +87,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    _initAuthChangeListeningAction: () => dispatch(initAuthChangeListeningAction())
+    _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
+    _logOutAsyncAction: () => dispatch(logOutAsyncAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth)
