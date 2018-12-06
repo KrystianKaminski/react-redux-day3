@@ -33,7 +33,7 @@ class Auth extends React.Component {
                         style={{
                             position: 'fixed',
                             top: 10,
-                            left: 10,
+                            right: 10,
                             zIndex: 9999,
                             color: 'white'
                         }}
