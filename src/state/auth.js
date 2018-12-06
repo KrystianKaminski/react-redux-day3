@@ -9,7 +9,7 @@ export const initAuthChangeListeningAsyncAction = () => (dispatch, getState) => 
     auth.onAuthStateChanged(
         user => {
             if (user) {
-                dispatch(logInAction())
+                dispatch(logInAction(user))
                 dispatch(saveLogInTimeStampAsyncAction())
             } else {
                 dispatch(logOutAction())
@@ -47,8 +47,9 @@ export const logInAsyncAction = () => (dispatch, getState) => {
         })
 }
 
-const logInAction = () => ({
-    type: LOG_IN
+const logInAction = user => ({
+    type: LOG_IN,
+    user
 })
 
 export const emailChangeAction = value => ({
@@ -69,6 +70,7 @@ const INITIAL_STATE = {
     isUserLoggedIn: false,
     email: '',
     password: '',
+    user: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -77,12 +79,14 @@ export default (state = INITIAL_STATE, action) => {
         case LOG_IN:
             return {
                 ...state,
-                isUserLoggedIn: true
+                isUserLoggedIn: true,
+                user: action.user
             }
         case LOG_OUT:
             return {
                 ...state,
-                isUserLoggedIn: false
+                isUserLoggedIn: false,
+                user: null
             }
 
         case EMAIL_CHANGE:
