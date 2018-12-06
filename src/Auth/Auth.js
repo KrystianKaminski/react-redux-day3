@@ -20,16 +20,7 @@ class Auth extends React.Component {
 
 
     componentDidMount() {
-        auth.onAuthStateChanged(
-            // user is an obj with user data or null when not loggen in
-            user => {
-                if (user) {
-                    this.setState({ isUserLoggedIn: true })
-                } else {
-                    this.setState({ isUserLoggedIn: false })
-                }
-            }
-        )
+       this.props._initAuthChangeListeningAction()
     }
 
 
@@ -60,7 +51,7 @@ class Auth extends React.Component {
 
     render() {
         return (
-            this.state.isUserLoggedIn ?
+            this.props._isUserLoggedIn ?
                 <div>
                     <FloatingActionButton
                         style={{
