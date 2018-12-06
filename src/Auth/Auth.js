@@ -11,16 +11,13 @@ import {
     initAuthChangeListeningAsyncAction,
     logOutAsyncAction,
     logInByGoogleAsyncAction,
-    logIn
+    logInAsyncAction,
+    emailChangeAction,
+    passwordChangeAction
 } from '../state/auth'
 
 
 class Auth extends React.Component {
-
-    state = {
-        email: '',
-        password: '',
-    }
 
 
 
@@ -29,16 +26,8 @@ class Auth extends React.Component {
     }
 
 
-    emailHandler = e => {
-        this.setState({ email: e.target.value })
-    }
-
-    passwordHandler = e => {
-        this.setState({ password: e.target.value })
-    }
-
     onLogInClick = () => {
-        this.props._logIn(this.state.email, this.state.password)
+        this.props._logInAsyncAction(this.state.email, this.state.password)
     }
 
 
@@ -66,26 +55,30 @@ class Auth extends React.Component {
                 </div>
                 :
                 <Forms
-                    emailHandler={this.emailHandler}
-                    passwordHandler={this.passwordHandler}
+                    emailHandler={(e) => this.props._emailChangeAction(e.target.value)}
+                    passwordHandler={(e) => this.props._passwordChangeAction(e.target.value)}
                     onLogIn={this.onLogInClick}
                     onLogGoogle={this.props._logInByGoogleAsyncAction}
-                    emailValue={this.state.email}
-                    passwordValue={this.state.password}
+                    emailValue={this.props._email}
+                    passwordValue={this.props._password}
                 />
         )
     }
 }
 
 const mapStateToProps = state => ({
-    _isUserLoggedIn: state.auth.isUserLoggedIn
+    _isUserLoggedIn: state.auth.isUserLoggedIn,
+    _email: state.auth.email,
+    _password: state.auth.password
 })
 
 const mapDispatchToProps = dispatch => ({
     _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
     _logOutAsyncAction: () => dispatch(logOutAsyncAction()),
     _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction()),
-    _logIn: (email, password) => dispatch(logIn(email, password))
+    _logInAsyncAction: (email, password) => dispatch(logInAsyncAction(email, password)),
+    _emailChangeAction: value => dispatch(emailChangeAction(value)),
+    _passwordChangeAction: value => dispatch(passwordChangeAction(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth)
