@@ -1,5 +1,7 @@
 import { auth, database, googleProvider } from '../firebaseConfig'
 
+import { loadTextFromDbAsyncAction } from './userData'
+
 const LOG_IN = 'auth/LOG_IN'
 const LOG_OUT = 'auth/LOG_OUT'
 const EMAIL_CHANGE = 'auth/EMAIL_CHANGE'
@@ -11,6 +13,7 @@ export const initAuthChangeListeningAsyncAction = () => (dispatch, getState) => 
             if (user) {
                 dispatch(logInAction(user))
                 dispatch(saveLogInTimeStampAsyncAction())
+                dispatch(loadTextFromDbAsyncAction())
             } else {
                 dispatch(logOutAction())
             }
@@ -63,7 +66,7 @@ export const passwordChangeAction = value => ({
 })
 
 const logOutAction = () => ({
-    type: LOG_OUT
+    type: LOG_OUT   
 })
 
 const INITIAL_STATE = {

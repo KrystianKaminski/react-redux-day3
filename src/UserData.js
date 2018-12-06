@@ -6,7 +6,7 @@ import { inputChangeAction, saveTextToDbAsyncAction } from './state/userData';
 const UserData = (props) => (
     <div>
         <input
-            value={props._userData}
+            value={props._userText}
             onChange={props._inputChangeAction}
         />
         <button
